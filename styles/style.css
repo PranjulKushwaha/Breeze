@@ -1,0 +1,56 @@
+body{
+    /* background-color: #253242 !important; */
+    background: linear-gradient(rgb(49, 116, 183) 0%, rgb(0, 62, 124)  87.55%) !important;
+}
+.bgSecondary{
+    background-color: rgba(255, 255, 255, 0.04);;
+}
+
+.currentWeatherTemp{
+    color: #fff;
+    font-size: 3rem;
+}
+
+
+
+
+/*--------------------------------------------------------------
+# Preloader
+--------------------------------------------------------------*/
+.preloader {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 99;
+    overflow: hidden;
+    /* background: #fff; */
+    background: linear-gradient(rgb(49, 116, 183) 0%, rgb(0, 62, 124)  87.55%) !important;
+
+    /* background:rgba(255, 255, 255, 0.101); */
+}
+
+ .preloader:before {
+    content: "";
+    position: absolute;
+    top: calc(50% - 30px);
+    left: calc(50% - 30px);
+    border: 6px solid #106eea;
+    border-top-color: #e2eefd;
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    animation: animate-preloader 1s linear infinite;
+  }
+  
+  @keyframes animate-preloader {
+    0% {
+      transform: rotate(0deg);
+    }
+  
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+  

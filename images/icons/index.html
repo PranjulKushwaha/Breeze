@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Icons</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link rel="stylesheet" href="../../styles/style.css">
+
+</head>
+
+<body style="min-height: 100vh;">
+    <nav class="navbar container-fluid py-0 mb-4 navbar-dark bg-dark">
+        <div class="container  d-flex align-items-center">
+            <a class="navbar-brand" href="#">
+                <img src="../logo.png" alt="Logo" width="60" class="d-inline-block" />
+                <p class="d-inline-block text-white fw-bold">Breeze</p>
+            </a>
+        </div>
+    </nav>
+    <div id="dayiconContainer" class="container p-4 my-4 d-flex flex-wrap gap-2  align-content-around  ">
+        <h4 class=" my-3 text-white w-100 text-center">Day Icons</h4>
+
+    </div>
+    <div id="nighticonContainer" class="container p-4 my-4 d-flex flex-wrap gap-2  align-content-around  ">
+        <h4 class=" my-3 text-white w-100 text-center">Night Icons</h4>
+
+    </div>
+    <div id="svgIconContainer" class="container p-4 my-4 d-flex flex-wrap gap-2  align-content-around  ">
+        <h4 class=" my-3 text-white w-100 text-center">SVG Icons</h4>
+
+    </div>
+    <script type="module">
+        import { weatherCodeDescriptions } from '../../js/weatherCode.mjs'
+        const dayiconContainer = document.getElementById('dayiconContainer');
+        const nighticonContainer = document.getElementById('nighticonContainer');
+        const svgIconContainer = document.getElementById('svgIconContainer');
+
+        
+        const ICON_MAP = new Map()
+
+        addMapping([ 0 ], "clear")
+        addMapping([ '0n' ], "clearMoon")
+        addMapping([ 1, 2 ], "partlyCloudy")
+        addMapping([ '1n', '2n' ], "partlyCloudy")
+        addMapping([ 3 ], "overcast")
+        addMapping([ 45, 48 ], "fog")
+        addMapping([ 3 ], "cloud")
+        addMapping([ 51 ], "lightDrizzle")
+        addMapping([ '51n' ], "lightDrizzleMoon")
+        addMapping([ 53 ], "drizzle")
+        addMapping([ 55 ], "denseDrizzle")
+        addMapping([ 56, 57 ], "freezingDrizzle")
+        addMapping([ 61, 80 ], "lightRain")
+        addMapping([ '61n', '80n' ], "lightRainMoon")
+        addMapping([ 63, 81 ], "rain")
+        addMapping([ 65, 82 ], "heavyRain")
+        addMapping([ 66, 67 ], "freezingRain")
+        addMapping([ 71 ], "lightSnow")
+        addMapping([ 73, 85 ], "Snow")
+        addMapping([ 75, 86 ], "denseSnow")
+        addMapping([ 77 ], "snowgrains")
+        addMapping([ 95 ], "thunder")
+        addMapping([ 96 ], "moderateThunder")
+        addMapping([ 99 ], "heavyThunder")
+
+
+        function addMapping(values, icon) {
+            values.forEach(value => {
+                ICON_MAP.set(value, icon)
+            })
+        }
+        weatherCodeDescriptions.forEach((item) => {
+            let iconUi = ` <div class="iconItem bgSecondary p-3" style=" width:120px" >
+            <img src="${item.code}.svg" alt="Logo" width="60" class="mx-auto d-inline-block" />
+        <p class="small mt-2 text-white fw-bold text-center">${item.description}</p>
+        </div>`
+
+            console.log(iconUi);
+            dayiconContainer.innerHTML += iconUi
+        })
+
+        weatherCodeDescriptions.forEach((item) => {
+            let iconUi = ` <div class="iconItem bgSecondary p-3" style=" width:120px" >
+            <img src="${item.code}n.svg" alt="Logo" width="60" class="mx-auto d-inline-block" />
+        <p class="small mt-2 text-white fw-bold text-center">${item.description}</p>
+        </div>`
+
+            console.log(iconUi);
+            nighticonContainer.innerHTML += iconUi
+        })
+        weatherCodeDescriptions.forEach((item) => {
+            let iconUi = ` <div class="iconItem bgSecondary p-3" style=" width:120px" >
+            <img src="./svg/${ICON_MAP.get(item.code)}.svg" alt="Logo" width="60" class="mx-auto d-inline-block" />
+        <p class="small mt-2 text-white fw-bold text-center">${item.description}</p>
+        </div>`
+
+            console.log(iconUi);
+            svgIconContainer.innerHTML += iconUi
+        })
+
+
+        // console.log();
+
+
+
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
+</body>
+
+</html>
