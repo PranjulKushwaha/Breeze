@@ -1,6 +1,5 @@
 import { getWeatherStatus } from "./weatherCode.mjs"
 import { ICON_MAP } from "./iconMap.mjs";
-// import data from './data.json' assert { type: 'json' };
 
 function parseDateTime(timestamp) {
     const dateTime = new Date(timestamp);
@@ -10,26 +9,27 @@ function parseDateTime(timestamp) {
 
     return { day, date, time };
 }
-
 function getIconUrl(weatherCode, is_day) {
+
     const nightIconCode = [ 0, 1, 2, 51, 61, 80 ]
 
-    return (!is_day && nightIconCode.includes(weatherCode)) ? `images/icons/svg/${ICON_MAP.get(weatherCode + 'n')}n.svg` : `images/icons/svg/${ICON_MAP.get(weatherCode)}.svg`
+    if ((!is_day) && nightIconCode.includes(weatherCode)) {
+        return `images/icons/svg/${ICON_MAP.get(weatherCode + 'n')}.svg`
+    }
+    else {
+        return `images/icons/svg/${ICON_MAP.get(weatherCode)}.svg`;
+    }
 
 
 }
-
-export function parseLocation({ latitude, longitude }) {
-
-    return { latitude, longitude }
-}
-
-
-export function parseCurrentWeather({ current_weather }) {
+export function parseCurrentWeather({ current_weather, hourly }) {
     const currentData = {
         "temp": current_weather.temperature,
         "wSpeed": current_weather.windspeed,
         "wDir": current_weather.winddirection,
+        "dew": hourly.dewpoint_2m[ 0 ],
+        "visibility": hourly.visibility[ 0 ],
+        "apparent": hourly.apparent_temperature[ 0 ],
         "time": parseDateTime(current_weather.time),
         "status": getWeatherStatus(current_weather.weathercode).description,
         "img": getIconUrl(current_weather.weathercode, current_weather.is_day),
@@ -38,7 +38,6 @@ export function parseCurrentWeather({ current_weather }) {
     // console.log(currentData);
     return currentData
 }
-
 export function parseDailyWeather({ daily }) {
     const dailyWeather = {}
 
@@ -55,7 +54,7 @@ export function parseDailyWeather({ daily }) {
             'maxTemp': daily.temperature_2m_max[ i ],
             'sunrise': daily.sunrise[ i ],
             'sunset': daily.sunset[ i ],
-            'uv': daily.uv_index_max[ i ],
+            // 'uv': daily.uv_index_max[ i ],
             'precip': daily.precipitation_sum[ i ],
 
         }
@@ -69,7 +68,8 @@ export function parseDailyWeather({ daily }) {
 export function parseHourlyWeather({ hourly }) {
     const hourlyWeather = {}
 
-    let numOfHrs = hourly.time.length
+    // let numOfHrs = hourly.time.length
+    let numOfHrs = 12
 
     for (let i = 0; i < numOfHrs; ++i) {
 
@@ -78,16 +78,16 @@ export function parseHourlyWeather({ hourly }) {
 
             'time': parseDateTime(hourly.time[ i ]).time,
             'temp': hourly.temperature_2m[ i ],
-            'dew': hourly.dewpoint_2m[ i ],
+            // 'dew': hourly.dewpoint_2m[ i ],
             'precipProbab': hourly.precipitation_probability[ i ],
-            'rain': hourly.rain[ i ],
-            'showers': hourly.showers[ i ],
+            // 'rain': hourly.rain[ i ],
+            // 'showers': hourly.showers[ i ],
             'img': getIconUrl(hourly.weathercode[ i ], hourly.is_day[ i ]),
             "status": getWeatherStatus(hourly.weathercode[ i ]).description,
-            'visibility': hourly.visibility[ i ],
+            // 'visibility': hourly.visibility[ i ],
             'wSpeed': hourly.windspeed_10m[ i ],
             'wDir': hourly.winddirection_10m[ i ],
-            'uv': hourly.uv_index[ i ],
+            // 'uv': hourly.uv_index[ i ],
             'isDay': hourly.is_day[ i ]
 
         }
@@ -97,11 +97,3 @@ export function parseHourlyWeather({ hourly }) {
     }
     return hourlyWeather
 }
-
-
-//  console.log(parseCurrentWeather(data))
-// console.log(parseDailyWeather(data))
-// console.log(parseHourlyWeather(data))
-
-// parseHourlyWeather(data)
-// parseDailyWeather(data)

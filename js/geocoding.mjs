@@ -30,7 +30,7 @@ export async function getCoordinatesByCity(cityName) {
             for (let entry in entryArray) {
 
                 const candidate = entryArray[ entry ]
-
+                // console.log(candidate);
                 const cityData = {
                     "address": candidate.address,
                     "latitude": candidate.location.y,

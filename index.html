@@ -25,16 +25,16 @@
 
 <body data-bs-theme="dark">
 	<nav class="navbar container-fluid py-0  navbar-dark bg-body">
-		<div class="container  d-flex align-items-center">
+		<div class="container  d-flex align-items-center flex-nowrap ">
 			<a class="navbar-brand" href="#">
 				<img src="./images/logo1.png" alt="Logo" width="60" class="d-inline-block" />
-				<p class="d-inline-block text-white fw-bold">Breeze</p>
+				<p class="d-md-inline-block text-white fw-bold d-none ">Breeze</p>
 			</a>
 
 			<div class=" position-relative">
 
 
-				<div class="input-group" style="min-width: 400px;">
+				<div class="input-group" style="min-width: 150px;width:40vw">
 					<input type="text" id="searchValue" class="form-control" placeholder="search for city" aria-label="search for city"
 						aria-describedby="city search">
 					<button class="input-group-text" id="searchButton">
@@ -57,7 +57,7 @@
 					<div id="searchResults" class="py-2"></div>
 				</div>
 			</div>
-			<div class="btn-group btn-group-sm" role="group" aria-label="Basic radio toggle button group">
+			<div class="btn-group btn-group-sm " role="group" aria-label="Basic radio toggle button group">
 				<input type="radio" class="btn-check" name="C" id="C" autocomplete="off" checked />
 				<label class="btn btn-outline-light" for="C">°C</label>
 
@@ -81,54 +81,63 @@
 					<p id="currentWeatherTime" class=" ms-5 mb-0"></p>
 				</div>
 
-				<div class="container py-4 d-flex flex-column flex-sm-row align-items-center ">
+				<div class="container py-4 d-flex flex-column flex-sm-row gap-3 justify-content-start align-items-center ">
 
-					<div class=" d-flex justify-content-start align-items-end" style="width:400px">
+					<div class="container d-flex">
 						<img src="" width="100" id="currentWeatherIcon" class="mx-4 " />
-
-
 						<p class="currentWeatherTemp " id="currentWeatherTemp"></p>
 						<p class="fs-2 ms-2 "> <sup>°C</sup></p>
-
 					</div>
 
+					<div class=" container" >
+						<h5 class="" id="currentWeatherStatus"></h5>
+						<h5 class="small">Feels like <span id="apparent" class="mx-2"></span>°C </h5>
 
-					<h5 class="" id="currentWeatherStatus"></h5>
-
-				</div>
-
-				<div class="row   ">
-					<div class="col-6 col-sm-3 ">
-						<div class="container  " style="height:100px;width:200px">
-							<p class="small mx-auto mt-2 mb-0" style="width:max-content">Wind</p>
-							<h4 class=" mx-auto" style="width:max-content">7 Km/h</h3>
-						</div>
 					</div>
-					<div class="col-6 col-sm-3 ">
-						<div class="container  " style="height:100px;width:200px">
-							<p class="small mx-auto mt-2 mb-0" style="width:max-content">Humidity</p>
-							<h4 class=" mx-auto" style="width:max-content">61 %</h3>
-						</div>
-					</div>
-					<div class="col-6 col-sm-3 ">
-						<div class="container  " style="height:100px;width:200px">
-							<p class="small mx-auto mt-2 mb-0" style="width:max-content">visibility</p>
-							<h4 class=" mx-auto" style="width:max-content">5 Km</h3>
-						</div>
-					</div>
-					<div class="col-6 col-sm-3 ">
-						<div class="container  " style="height:100px;width:200px">
-							<p class="small mx-auto mt-2 mb-0" style="width:max-content">Dew Point</p>
-							<h4 class=" mx-auto" style="width:max-content">12</h3>
-						</div>
+					<div class=" container" >
+						
 					</div>
 				</div>
+			</div>
+
+			<div class="row">
+				<div class="col-6 col-sm-3 ">
+					<div class="container  " style="height:100px;width:200px">
+						<p class="small mx-auto mt-2 mb-0" style="width:max-content">Wind</p>
+						<h4 class=" mx-auto" style="width:max-content">
+							<span id="wSpeed" class="mx-2"></span>Km/h
+						</h4>
+					</div>
+				</div>
+				<div class="col-6 col-sm-3 ">
+					<div class="container  " style="height:100px;width:200px">
+						<p class="small mx-auto mt-2 mb-0" style="width:max-content">Humidity</p>
+						<h4 class=" mx-auto" style="width:max-content">61 %</h4>
+					</div>
+				</div>
+				<div class="col-6 col-sm-3 ">
+					<div class="container  " style="height:100px; width:200px">
+						<p class="small mx-auto mt-2 mb-0" style="width:max-content">visibility</p>
+						<h4 class=" mx-auto" style="width:max-content">
+							<span id="visibility" class="mx-2"></span> Km
+						</h4>
+					</div>
+				</div>
+				<div class="col-6 col-sm-3 ">
+					<div class="container  " style="height:100px;width:200px">
+						<p class="small mx-auto mt-2 mb-0" style="width:max-content">Dew Point</p>
+						<h4 class=" mx-auto" style="width:max-content">
+							<span id="dew" class="mx-2"></span>°C
+						</h4>
+					</div>
+				</div>
+			</div>
 			</div>
 
 		</section>
 
 
-		<section class="container mb-4  rounded-2 ">
+		<section class="container mb-4   ">
 			<h5 class="pt-4 ps-3">7 days Forecast</h5>
 
 			<div class="swiper weeklyForecast ">
@@ -164,20 +173,17 @@
 			</script>
 		</section>
 
-		<section class="container mb-4 bgSecondary rounded-2 " style="height: 300px">
+		<section class="container mb-4 ">
+			<h5 class="pt-4 ps-3">Hourly Forecast</h5>
 
+			<div class="row " id="hourlyWeatherContainer"></div>
 		</section>
 
 		<section class="container mb-4">
-			<div class="row gap-2">
-				<div class="col-12 col-md  bgSecondary " style="height: 300px">
-				</div>
-				<div class="col-12 col-md  bgSecondary " style="height: 300px">
-				</div>
-				<div class="col-12 col-md  bgSecondary " style="height: 300px">
-				</div>
-				<div class="col-12 col-md  bgSecondary " style="height: 300px">
-				</div>
+			<h5 class="pt-4 ps-3">Famous cities</h5>
+
+			<div class="row " id="cityWeatherContainer">
+
 			</div>
 		</section>
 
