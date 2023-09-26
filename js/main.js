@@ -16,6 +16,8 @@ const searchBox = document.getElementById('searchValue');
 const searchButton = document.getElementById('searchButton');
 const geoLocation = document.getElementById('geoLocation');
 const weeklyWeatherContainer = document.getElementById('weeklyWeatherContainer')
+// city list for famous cities data
+const cityList = [ 'Lucknow', 'Kanpur Nagar', 'Kannauj', 'Unnao' ];
 
 
 // ========================================
@@ -39,21 +41,18 @@ async function main(lat, long) {
     let preloader = document.getElementById('preloader')
 
     try {
-        
-        // city list for famous cities data
-        const cityList = [ 'Lucknow', 'Kanpur Nagar', 'Kannauj', 'Unnao' ];
+
 
         const currentWeather = parseCurrentWeather(await fetchData(lat, long, currentParams))
         const dailyWeather = parseDailyWeather(await fetchData(lat, long, dailyParams))
         const hourlyWeather = parseHourlyWeather(await fetchData(lat, long, hourlyParams))
-        const citiesWeather = await getWeatherOfCities(cityList)
 
         getCityByCoordinates(lat, long).then((city) => showCurrentData(city, currentWeather))
         showDailyData(dailyWeather)
         showHourlyData(hourlyWeather)
-        showCitiesData(citiesWeather);
 
-    
+
+
         preloader.remove()
 
     } catch (err) {
@@ -137,10 +136,9 @@ function showHourlyData(hourlyWeather) {
     }
 
 }
-function showCitiesData(cityListData) {
-    console.log(cityListData);
-    for (const city in cityListData) {
-        const cityWeather = cityListData[ city ];
+getWeatherOfCities(cityList).then((citiesWeather) => {
+    for (const city in citiesWeather) {
+        const cityWeather = citiesWeather[ city ];
         const cityWeatherItem = document.createElement('div');
         cityWeatherItem.setAttribute('class', 'col');
         cityWeatherItem.innerHTML = `
@@ -157,7 +155,8 @@ function showCitiesData(cityListData) {
         `;
         document.getElementById('cityWeatherContainer').appendChild(cityWeatherItem);
     }
-}
+   
+})
 function showSearchResults() {
 
     if (searchBox.value) {
