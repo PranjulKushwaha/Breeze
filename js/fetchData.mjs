@@ -8,13 +8,13 @@ export async function fetchData(lat, long, url) {
   let apiUrl = `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${long}`
 
   let fetchUrl = apiUrl + url
-  try {
+  try {   
     const response = await fetch(fetchUrl, options);
-    const data = await response.json();
-    // console.log(url);
+    const data = await response.json(); 
     return data;
   } catch (err) {
     console.error(err);
-    throw err;
+    return err;
+    // throw err;
   }
 }

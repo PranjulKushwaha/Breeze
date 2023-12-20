@@ -19,167 +19,143 @@
 	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.1/css/all.css"
 		integrity="sha384-O8whS3fhG2OnA5Kas0Y9l3cfpmYjapjI0E4theH4iuMD+pLhbf6JI0jIMfYcK3yZ" crossorigin="anonymous" />
 
-	<!-- Link Swiper's CSS -->
-	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css" />
 </head>
 
-<body data-bs-theme="dark">
-	<nav class="navbar container-fluid py-0  navbar-dark bg-body">
+<body data-bs-theme="dark" class="position-relative">
+	<nav class="navbar container-fluid py-0  navbar-dark ">
 		<div class="container  d-flex align-items-center flex-nowrap ">
 			<a class="navbar-brand" href="#">
 				<img src="./images/logo1.png" alt="Logo" width="60" class="d-inline-block" />
 				<p class="d-md-inline-block text-white fw-bold d-none ">Breeze</p>
 			</a>
+			<div class=" position-relative ">
 
-			<div class=" position-relative">
-
-
-				<div class="input-group" style="min-width: 150px;width:40vw">
-					<input type="text" id="searchValue" class="form-control" placeholder="search for city" aria-label="search for city"
-						aria-describedby="city search">
-					<button class="input-group-text" id="searchButton">
+				<div class="input-group shadow-lg " style="min-width: 150px;width:40vw">
+					<input type="text" id="searchValue" class="form-control" style="background-color: rgb(0, 0, 0, 0.1);"
+						placeholder="search for city" aria-label="search for city" aria-describedby="city search" autocomplete="off">
+					<button class="input-group-text" id="searchButton" style="background-color: rgb(0, 0, 0, 0.1);">
 						<i class="fas fa-search"></i>
 					</button>
 				</div>
 
-
-				<div id="searchContainer" class="d-none bg-light-subtle position-absolute container rounded-bottom " style="z-index:1000">
+				<div id="searchContainer" class="d-none  position-absolute container rounded-bottom "
+					style="background-color: rgb(0, 0, 0, 0.7); z-index:1000">
 					<div class=" bgSecondary py-2 ps-4 pe-2 mt-2 mb-2 d-flex justify-content-between " id="geoLocation">
 						<div class="">
-
 							<i class="fas fa-map-marker-alt me-2"></i>
 							Your Location
 							<p id="locationError" class="text-danger text-center mb-0 px-2 ">
+							</p>
 						</div>
-
-						</p>
 					</div>
 					<div id="searchResults" class="py-2"></div>
 				</div>
 			</div>
-			<div class="btn-group btn-group-sm " role="group" aria-label="Basic radio toggle button group">
-				<input type="radio" class="btn-check" name="C" id="C" autocomplete="off" checked />
-				<label class="btn btn-outline-light" for="C">°C</label>
-
-				<input type="radio" class="btn-check" name="F" id="F" autocomplete="off" />
-				<label class="btn btn-outline-light" for="F">°F</label>
-			</div>
+			<a href="https://github.com/PranjulKushwaha/Breeze">
+				<i class="fab fa-github fs-3 text-white gIcon"></i>
+			</a>
 		</div>
 	</nav>
 
-	<main class="container-fluid py-4 position-relative " style="min-height:100vh">
+	<main class="container-fluid   py-5 " id="main">
 
-		<section class="container  mb-4 bgSecondary pt-3  ">
+		<!-- current weather container -->
+		<section class="container ">
 
-			<h5 class="text-light text-uppercase ms-3 mb-3">Current Weather</h5>
-
-			<!-- current weather container -->
-			<div class="container ">
-				<div class=" ms-3 d-flex  align-items-center mb-2 mt-1" style="min-width:200px">
-					<i class="fas fa-map-marker-alt me-2"></i>
-					<p id="location" class=" mb-0"></p>
-					<p id="currentWeatherTime" class=" ms-5 mb-0"></p>
-				</div>
-
-				<div class="container py-4 d-flex flex-column flex-sm-row gap-3 justify-content-start align-items-center ">
-
-					<div class="container d-flex">
-						<img src="" width="100" id="currentWeatherIcon" class="mx-4 " />
-						<p class="currentWeatherTemp " id="currentWeatherTemp"></p>
-						<p class="fs-2 ms-2 "> <sup>°C</sup></p>
+			<div class="container bgSecondary  pt-3 ">
+				<h5 class="text-light text-uppercase ms-3 mb-3">Current Weather</h5>
+				<div class="container ">
+					<div class="d-flex flex-column flex-sm-row gap-sm-2 gap-md-4">
+						<p class=" mb-0 text-nowrap"><i class="fas fa-map-marker-alt me-2"></i><span id="location"></span></p>
+						<p class="d-flex flex-wrap gap-sm-2 mb-0">
+							<span id="currentWeatherDate" class="text-nowrap mb-0"></span>&nbsp;&nbsp;
+							<span id="currentWeatherTime" class="text-nowrap mb-0"></span>
+						</p>
 					</div>
 
-					<div class=" container" >
-						<h5 class="" id="currentWeatherStatus"></h5>
-						<h5 class="small">Feels like <span id="apparent" class="mx-2"></span>°C </h5>
+					<div class="container py-4 d-flex flex-column flex-sm-row gap-3 justify-content-start align-items-center ">
 
-					</div>
-					<div class=" container" >
-						
-					</div>
-				</div>
-			</div>
+						<div class="container d-flex flex-column flex-sm-row">
+							<img src="" width="100" id="currentWeatherIcon" class="mx-auto mx-sm-4 " />
+							<p class="text-nowrap">
+								<span class="currentWeatherTemp" id="currentWeatherTemp"></span>
+								<span class="fs-2 ms-2 "> <sup>°C</sup></span>
+							</p>
+						</div>
 
-			<div class="row">
-				<div class="col-6 col-sm-3 ">
-					<div class="container  " style="height:100px;width:200px">
-						<p class="small mx-auto mt-2 mb-0" style="width:max-content">Wind</p>
-						<h4 class=" mx-auto" style="width:max-content">
-							<span id="wSpeed" class="mx-2"></span>Km/h
-						</h4>
-					</div>
-				</div>
-				<div class="col-6 col-sm-3 ">
-					<div class="container  " style="height:100px;width:200px">
-						<p class="small mx-auto mt-2 mb-0" style="width:max-content">Humidity</p>
-						<h4 class=" mx-auto" style="width:max-content">61 %</h4>
+						<div class=" container">
+							<h5 class="" id="currentWeatherStatus"></h5>
+							<h5 class="small">Feels like <span id="apparent" class="mx-2"></span>°C </h5>
+
+						</div>
+						<div class=" container d-flex bgSecondary py-3 mx-auto rounded shadow">
+							<div class="container">
+								<p class="mb-0 text-center" id="sunrise"></p>
+								<img src="./images/sunrise.png" alt="sunrise" class="mx-auto d-block" height="50px">
+							</div>
+							<div class="container">
+								<p class="mb-0 text-center " id="sunset"></p>
+								<img src="./images/sunset.png" alt="sunset" class="mx-auto d-block" height="50px">
+							</div>
+
+						</div>
 					</div>
 				</div>
-				<div class="col-6 col-sm-3 ">
-					<div class="container  " style="height:100px; width:200px">
-						<p class="small mx-auto mt-2 mb-0" style="width:max-content">visibility</p>
-						<h4 class=" mx-auto" style="width:max-content">
-							<span id="visibility" class="mx-2"></span> Km
-						</h4>
+				<div class="row">
+					<div class="col-auto flex-grow-1 col-sm-3">
+						<div class="container mb-4">
+							<p class="small text-center my-1">Humidity</p>
+							<h4 class="text-center">
+								<span id="humidity" class="mx-2"></span> %
+							</h4>
+						</div>
+					</div>
+					<div class="col-auto flex-grow-1 col-sm-3">
+						<div class="container mb-4">
+							<p class="small text-center my-1">Precipitation</p>
+							<h4 class="text-center">
+								<span id="precipitation" class="mx-2"></span>mm
+							</h4>
+						</div>
+					</div>
+					<div class="col-auto flex-grow-1 col-sm-3">
+						<div class="container mb-4">
+							<p class="small text-center my-1">visibility</p>
+							<h4 class="text-center">
+								<span id="visibility" class="mx-2"></span> Km
+							</h4>
+						</div>
+					</div>
+					<div class="col-auto flex-grow-1 col-sm-3">
+						<div class="container mb-4">
+							<p class="small text-center my-1">Wind</p>
+							<h4 class="text-center">
+								<span id="wSpeed" class="mx-2"></span>Km/h
+							</h4>
+						</div>
 					</div>
 				</div>
-				<div class="col-6 col-sm-3 ">
-					<div class="container  " style="height:100px;width:200px">
-						<p class="small mx-auto mt-2 mb-0" style="width:max-content">Dew Point</p>
-						<h4 class=" mx-auto" style="width:max-content">
-							<span id="dew" class="mx-2"></span>°C
-						</h4>
-					</div>
-				</div>
-			</div>
 			</div>
 
 		</section>
 
-
+		<!-- Weekly forecast  -->
 		<section class="container mb-4   ">
-			<h5 class="pt-4 ps-3">7 days Forecast</h5>
-
-			<div class="swiper weeklyForecast ">
-				<div class="swiper-wrapper py-3  " id="weeklyWeatherContainer">
-				</div>
-
-				<!-- <div class="swiper-button-prev"></div>
-        		<div class="swiper-button-next"></div> -->
-				<div class="swiper-scrollbar"></div>
-
-				<!-- <div class="swiper-pagination"></div> -->
-
+			<h6 class="pt-4 ps-3 text-uppercase">Weekly Forecast</h6>
+			<div class="row gap-3 g-0 py-3" id="weeklyWeatherContainer">
 			</div>
 
-			<!-- Swiper JS -->
-			<script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
-
-			<!-- Initialize Swiper -->
-			<script>
-				var swiper = new Swiper(".weeklyForecast", {
-					slidesPerView: "auto",
-					spaceBetween: 30,
-					mousewheel: true,
-					// navigation: {
-					//   nextEl: ".swiper-button-next",
-					//   prevEl: ".swiper-button-prev",
-					// },
-					scrollbar: {
-						el: ".swiper-scrollbar",
-						hide: true,
-					},
-				});
-			</script>
 		</section>
 
+		<!-- hourly forecast  -->
 		<section class="container mb-4 ">
-			<h5 class="pt-4 ps-3">Hourly Forecast</h5>
+			<h6 class="pt-4 ps-3 mb-4 text-uppercase">Hourly Forecast</h6>
 			<div class="row " id="hourlyWeatherContainer"></div>
 		</section>
 
+		<!-- cities weather  -->
 		<section class="container mb-4">
-			<h5 class="pt-4 ps-3">Famous cities</h5>
+			<h6 class="pt-4 ps-3 text-uppercase">Famous cities</h6>
 			<div class="row " id="cityWeatherContainer"></div>
 		</section>
 
@@ -187,7 +163,7 @@
 
 	</main>
 
-	<footer class="container-fluid pt-4" style="background-color: #1c5288">
+	<footer class="container-fluid pt-4 footer">
 		<div class="container">
 			<div class="row gap-2">
 				<div class="col">
@@ -212,7 +188,7 @@
 								Pranjul Kushwaha
 							</li>
 							<li class="text-white-50 mb-0 text-center">
-								<!-- Arjun Kushwaha -->
+								Arjun Kushwaha
 							</li>
 							<li class="text-white-50 mb-0 text-center">
 								<!-- Avinash Dwivedi -->
@@ -259,24 +235,21 @@
 				<p class="small text-white-50 me-5">
 					&copy; 2023 Breeze weather app
 				</p>
-				<ul class="list-unstyled d-flex justify-content-center gap-2">
-					<li class="text-white-50 mb-0 me-2 small text-center">
-						Terms of use
-					</li>
-					<li class="text-white-50 mb-0 small text-center">
-						Cookies
-					</li>
-				</ul>
+
 			</div>
+		</div>
 	</footer>
 	<!-- Js -->
 	<script type="module" src="js/main.js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
 		integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
 
-	<div id="mainPreloader" class="preloader">
+	<div id="mainPreloader" class="preloader"></div>
 
-	</div>
+	<video id="bgVideo" autoplay muted loop>
+
+	</video>
+
 </body>
 
 </html>

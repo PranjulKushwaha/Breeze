@@ -1,5 +1,6 @@
 import { getWeatherStatus } from "./weatherCode.mjs"
 import { ICON_MAP } from "./iconMap.mjs";
+import { VIDEO_MAP } from "./videoMap.mjs";
 
 function parseDateTime(timestamp) {
     const dateTime = new Date(timestamp);
@@ -22,20 +23,28 @@ function getIconUrl(weatherCode, is_day) {
 
 
 }
-export function parseCurrentWeather({ current_weather, hourly }) {
-    const currentData = {
-        "temp": current_weather.temperature,
-        "wSpeed": current_weather.windspeed,
-        "wDir": current_weather.winddirection,
-        "dew": hourly.dewpoint_2m[ 0 ],
-        "visibility": hourly.visibility[ 0 ],
-        "apparent": hourly.apparent_temperature[ 0 ],
-        "time": parseDateTime(current_weather.time),
-        "status": getWeatherStatus(current_weather.weathercode).description,
-        "img": getIconUrl(current_weather.weathercode, current_weather.is_day),
-    }
+ function getVideoUrl(weatherCode){
+    return `videos/${VIDEO_MAP.get(weatherCode)}`
 
-    // console.log(currentData);
+}
+export function parseCurrentWeather({ current, hourly ,daily }) {
+    const currentData = {
+        "temp": current.temperature_2m,
+        "wSpeed": current.wind_speed_10m,
+        "wDir": current.wind_direction_10m,
+        "humidity": current.relative_humidity_2m,
+        "precipitation": current.precipitation,
+        "visibility": hourly.visibility[ 0 ],
+        "apparent": current.apparent_temperature,
+        "time": parseDateTime(current.time),
+        "status": getWeatherStatus(current.weather_code).description,
+        "img": getIconUrl(current.weather_code, current.is_day),
+        "video": getVideoUrl(current.weather_code),
+        "sunrise" : parseDateTime(daily.sunrise),
+        "sunset" : parseDateTime(daily.sunset),
+
+        
+    }
     return currentData
 }
 export function parseDailyWeather({ daily }) {
@@ -54,7 +63,6 @@ export function parseDailyWeather({ daily }) {
             'maxTemp': daily.temperature_2m_max[ i ],
             'sunrise': daily.sunrise[ i ],
             'sunset': daily.sunset[ i ],
-            // 'uv': daily.uv_index_max[ i ],
             'precip': daily.precipitation_sum[ i ],
 
         }

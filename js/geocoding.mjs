@@ -1,19 +1,3 @@
-// export async function getCoordinatesByCity(city) {
-
-//     let options = { method: 'GET' };
-//     const url = `https://geocoding-api.open-meteo.com/v1/search?name=${city}&count=10&language=en&format=json`;
-//     console.log('url', url);
-
-//     try {
-//         const response = await fetch(url, options);
-//         const data = await response.json();
-//         return data;
-//     } catch (err) {
-//         console.error(err);
-//         throw err;
-//     }
-
-// }
 export async function getCoordinatesByCity(cityName) {
     const apiUrl = `https://geocode.arcgis.com/arcgis/rest/services/World/GeocodeServer/findAddressCandidates?f=json&maxLocations=5&singleLine=${encodeURIComponent(cityName)}`;
 
